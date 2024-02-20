@@ -1,4 +1,4 @@
-# curreny_converter
+# Curreny Converter
 
 Flutter mobile application that allows users to track the currency exchange rates between Egyptian pounds (EGP) and dollars (USD), as well as recent gold prices in Egyptian Pound (EGP).
 
