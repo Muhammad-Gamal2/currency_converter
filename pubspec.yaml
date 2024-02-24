@@ -45,12 +45,22 @@ dependencies:
   json_annotation: ^4.8.1
   # Networking
   dio: ^5.3.3
+  # An SVG rendering and widget library
+  flutter_svg: ^2.0.10+1
+  # internal package to fetch data
+  data_repository:
+    path: packages/data_repository
+  # internal package to handle network service
+  network_service:
+    path: packages/network_service
 
 dev_dependencies:
+  # Code generator
+  build_runner: ^2.4.8
   flutter_test:
     sdk: flutter
   # Code Linting
-  very_good_analysis: ^3.1.0
+  very_good_analysis: ^5.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -64,8 +74,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
