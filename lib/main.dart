@@ -28,10 +28,12 @@ class AppView extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => dataRepository,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Currency Converter',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF2C2C84)),
           useMaterial3: true,
+          scaffoldBackgroundColor: const Color(0xFFF6F6F6),
         ),
         home: const TabBarPage(),
       ),

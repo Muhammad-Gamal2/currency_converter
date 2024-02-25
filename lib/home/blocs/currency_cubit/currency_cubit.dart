@@ -19,6 +19,20 @@ class CurrencyCubit extends Cubit<CurrencyState> {
     emit(state.copyWith(status: RequestStatus.inProgress));
     try {
       final currencies = await _dataRepository.getCurrencyPrice();
+      if (currencies.isEmpty) {
+        emit(
+          state.copyWith(
+            status: RequestStatus.success,
+            currencies: [],
+          ),
+        );
+        return;
+      }
+      // make the usd the first currency in the list
+      final usd = currencies.firstWhere((element) => element.currency == 'USD');
+      currencies
+        ..remove(usd)
+        ..insert(0, usd);
       emit(
         state.copyWith(
           status: RequestStatus.success,

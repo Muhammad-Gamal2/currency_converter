@@ -55,10 +55,14 @@ dependencies:
     path: packages/network_service
 
 dev_dependencies:
+  # A testing library which makes it easy to test blocs.
+  bloc_test: ^9.1.6
   # Code generator
   build_runner: ^2.4.8
   flutter_test:
     sdk: flutter
+  # A Dart mock library
+  mocktail: ^1.0.3
   # Code Linting
   very_good_analysis: ^5.1.0
 
