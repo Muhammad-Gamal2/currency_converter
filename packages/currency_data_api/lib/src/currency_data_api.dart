@@ -12,7 +12,7 @@ class CurrencyDataApi {
     const request = '/latest';
     final response = await _networkService.get(
       request,
-      headers: {
+      queryParameters: {
         'access_key': '13c3fb513fdd2b6fd2c441ff25f918ce',
         'symbols': 'EGP,USD,GBP,SAR',
       },

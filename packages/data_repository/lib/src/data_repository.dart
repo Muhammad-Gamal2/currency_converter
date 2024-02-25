@@ -24,14 +24,22 @@ class DataRepository {
 
   Future<List<Currency>> getCurrencyPrice() async {
     final currency = await _currencyDataApi.getCurrencyPrice();
-    return currency.rates.entries
-        .map(
-          (e) => Currency(
-            base: currency.base,
-            currency: e.key,
-            rate: e.value,
-          ),
-        )
-        .toList();
+    final EGPRate = currency.rates['EGP'] ?? 1;
+    return currency.rates.entries.map(
+      (e) {
+        if (e.key == 'EGP') {
+          return Currency(
+            base: 'EGP',
+            currency: 'EUR',
+            rate: EGPRate,
+          );
+        }
+        return Currency(
+          base: 'EGP',
+          currency: e.key,
+          rate: EGPRate/e.value,
+        );
+      },
+    ).toList();
   }
 }

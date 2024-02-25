@@ -61,14 +61,14 @@ void main() {
 
     final currencies = await dataRepository.getCurrencyPrice();
 
-    expect(currencies[0].base, 'EUR');
-    expect(currencies[0].currency, 'EGP');
+    expect(currencies[0].base, 'EGP');
+    expect(currencies[0].currency, 'EUR');
     expect(currencies[0].rate, 33.439963);
     expect(currencies[1].currency, 'USD');
-    expect(currencies[1].rate, 1.082304);
+    expect(currencies[1].rate, 30.897015071551063);
     expect(currencies[2].currency, 'GBP');
-    expect(currencies[2].rate, 0.854916);
+    expect(currencies[2].rate, 39.11491070467741);
     expect(currencies[3].currency, 'SAR');
-    expect(currencies[3].rate, 4.059114);
+    expect(currencies[3].rate, 8.238241892196179);
   });
 }
