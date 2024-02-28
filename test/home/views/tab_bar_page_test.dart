@@ -61,7 +61,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Now, the GoldPage should be displayed
-      expect(find.text('Gold Page'), findsOneWidget);
+      expect(find.byType(GoldPage), findsOneWidget);
     });
 
     testWidgets('third page is displayed when index is changed to 2',
@@ -80,7 +80,7 @@ void main() {
             ),
           );
 
-          // Change the index to 1 (Gold)
+          // Change the index to 1 (Converter)
           when(() => tabBarCubit.state).thenReturn(2);
 
           // Tap on the second BottomNavigationBarItem
@@ -88,7 +88,7 @@ void main() {
           await tester.pumpAndSettle();
 
           // Now, the GoldPage should be displayed
-          expect(find.text('Converter Page'), findsOneWidget);
+          expect(find.byType(ConverterPage), findsOneWidget);
         });
   });
 }

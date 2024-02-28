@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:curreny_converter/home/blocs/currency_cubit/currency_cubit.dart';
+import 'package:curreny_converter/home/home.dart';
 import 'package:curreny_converter/shared/shared.dart';
 import 'package:data_repository/data_repository.dart';
 import 'package:flutter_test/flutter_test.dart';

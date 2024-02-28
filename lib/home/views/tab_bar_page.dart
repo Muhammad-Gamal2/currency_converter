@@ -1,4 +1,5 @@
 import 'package:curreny_converter/home/home.dart';
+import 'package:data_repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,8 +9,17 @@ class TabBarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TabBarCubit>(
-      create: (context) => TabBarCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CurrencyCubit(
+            dataRepository: RepositoryProvider.of<DataRepository>(context),
+          )..getCurrencies(),
+        ),
+        BlocProvider(
+          create: (context) => TabBarCubit(),
+        ),
+      ],
       child: const TabBarView(),
     );
   }
@@ -79,8 +89,8 @@ class TabBarView extends StatelessWidget {
         index: state,
         children: const <Widget>[
           CurrencyPage(),
-          Text('Gold Page'),
-          Text('Converter Page'),
+          GoldPage(),
+          ConverterPage(),
         ],
       ),
     );

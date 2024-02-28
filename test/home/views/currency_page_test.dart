@@ -10,30 +10,12 @@ import 'package:mocktail/mocktail.dart';
 class MockCurrencyCubit extends MockCubit<CurrencyState>
     implements CurrencyCubit {}
 
-class MockDataRepository extends Mock implements DataRepository {}
-
 void main() {
   group('CurrencyPage and CurrencyView Widget Test', () {
     late CurrencyCubit currencyCubit;
-    late DataRepository dataRepository;
 
     setUp(() {
       currencyCubit = MockCurrencyCubit();
-      dataRepository = MockDataRepository();
-    });
-
-    testWidgets('CurrencyPage Widget Test', (WidgetTester tester) async {
-      when(() => currencyCubit.state).thenReturn(const CurrencyState());
-      await tester.pumpWidget(
-        RepositoryProvider(
-          create: (context) => dataRepository,
-          child: const MaterialApp(
-            home: CurrencyPage(),
-          ),
-        ),
-      );
-
-      expect(find.byType(CurrencyPage), findsOneWidget);
     });
 
     testWidgets('CurrencyView Widget Test', (WidgetTester tester) async {
@@ -42,12 +24,12 @@ void main() {
         MaterialApp(
           home: BlocProvider<CurrencyCubit>.value(
             value: currencyCubit,
-            child: const CurrencyView(),
+            child: const CurrencyPage(),
           ),
         ),
       );
 
-      expect(find.byType(CurrencyView), findsOneWidget);
+      expect(find.byType(CurrencyPage), findsOneWidget);
     });
 
     testWidgets('shows CircularProgressIndicator when status is inProgress',
@@ -58,7 +40,7 @@ void main() {
         MaterialApp(
           home: BlocProvider<CurrencyCubit>.value(
             value: currencyCubit,
-            child: const CurrencyView(),
+            child: const CurrencyPage(),
           ),
         ),
       );
@@ -83,7 +65,7 @@ void main() {
         MaterialApp(
           home: BlocProvider<CurrencyCubit>.value(
             value: currencyCubit,
-            child: const CurrencyView(),
+            child: const CurrencyPage(),
           ),
         ),
       );
@@ -100,7 +82,7 @@ void main() {
           status: RequestStatus.success,
           currencies: [
             Currency(base: 'EGP', currency: 'USD', rate: 15.5),
-            Currency(base: 'EGP', currency: 'EUR', rate: 18.5)
+            Currency(base: 'EGP', currency: 'EUR', rate: 18.5),
           ],
         ),
       );
@@ -108,7 +90,7 @@ void main() {
         MaterialApp(
           home: BlocProvider<CurrencyCubit>.value(
             value: currencyCubit,
-            child: const CurrencyView(),
+            child: const CurrencyPage(),
           ),
         ),
       );
@@ -126,7 +108,7 @@ void main() {
         MaterialApp(
           home: BlocProvider<CurrencyCubit>.value(
             value: currencyCubit,
-            child: const CurrencyView(),
+            child: const CurrencyPage(),
           ),
         ),
       );
