@@ -115,5 +115,23 @@ void main() {
 
       expect(find.text('No currencies found'), findsOneWidget);
     });
+
+    testWidgets('onRefresh', (WidgetTester tester) async {
+      when(() => currencyCubit.state).thenReturn(const CurrencyState());
+      when(() => currencyCubit.getCurrencies()).thenAnswer((_) async {});
+      await tester.pumpWidget(
+        MaterialApp(
+          home: BlocProvider<CurrencyCubit>.value(
+            value: currencyCubit,
+            child: const CurrencyPage(),
+          ),
+        ),
+      );
+
+      await tester.drag(find.byType(ListView), const Offset(0, 300));
+      await tester.pumpAndSettle();
+
+      verify(() => currencyCubit.getCurrencies()).called(1);
+    });
   });
 }

@@ -46,28 +46,47 @@ void main() {
   });
 
   testWidgets('shows SnackBar when status is failure',
-          (WidgetTester tester) async {
-        when(() => mockCubit.state).thenReturn(const GoldState());
-        whenListen(
-          mockCubit,
-          Stream<GoldState>.fromIterable([
-            const GoldState(),
-            const GoldState(
-              status: RequestStatus.failure,
-            ),
-          ]),
-        );
+      (WidgetTester tester) async {
+    when(() => mockCubit.state).thenReturn(const GoldState());
+    whenListen(
+      mockCubit,
+      Stream<GoldState>.fromIterable([
+        const GoldState(),
+        const GoldState(
+          status: RequestStatus.failure,
+        ),
+      ]),
+    );
 
-        await tester.pumpWidget(
-          MaterialApp(
-            home: BlocProvider<GoldCubit>.value(
-              value: mockCubit,
-              child: const GoldView(),
-            ),
-          ),
-        );
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BlocProvider<GoldCubit>.value(
+          value: mockCubit,
+          child: const GoldView(),
+        ),
+      ),
+    );
 
-        await tester.pump(); // Pumping a frame to show the SnackBar
-        expect(find.byType(SnackBar), findsOneWidget);
-      });
+    await tester.pump(); // Pumping a frame to show the SnackBar
+    expect(find.byType(SnackBar), findsOneWidget);
+  });
+
+  testWidgets('onRefresh', (WidgetTester tester) async {
+    when(() => mockCubit.state).thenReturn(const GoldState());
+    when(() => mockCubit.getGoldPrices()).thenAnswer((_) async {});
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BlocProvider<GoldCubit>.value(
+          value: mockCubit,
+          child: const GoldView(),
+        ),
+      ),
+    );
+
+    await tester.drag(find.byType(RefreshIndicator), const Offset(0, 300));
+    await tester.pumpAndSettle();
+
+    verify(() => mockCubit.getGoldPrices()).called(1);
+  });
 }

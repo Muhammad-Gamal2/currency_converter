@@ -46,7 +46,47 @@ void main() {
   });
 
   testWidgets('Test change currency button', (WidgetTester tester) async {
+    when(() => convertCurrencyCubit.state).thenReturn(
+      const ConvertCurrencyState(
+        fromCurrency: 'USD',
+        toCurrency: 'EGP',
+        rate: 20,
+        convertedAmount: 2000,
+        amount: 100,
+      ),
+    );
     // Build our app and trigger a frame.
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: BlocProvider<ConvertCurrencyCubit>.value(
+            value: convertCurrencyCubit,
+            child: ConverterWidget(
+              state: convertCurrencyCubit.state,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    when(() => convertCurrencyCubit.state).thenReturn(
+      const ConvertCurrencyState(
+        rate: 1 / 20,
+        convertedAmount: 5,
+        amount: 100,
+      ),
+    );
+
+    await tester.tap(find.byIcon(Icons.swap_vert_circle_outlined));
+    await tester.pumpAndSettle();
+
+    // Verify that the replaceCurrencies method was called.
+    verify(() => convertCurrencyCubit.replaceCurrencies(rate: 1 / 20))
+        .called(1);
+  });
+
+  testWidgets('Test onChange method of the ItemWidget',
+      (WidgetTester tester) async {
     when(() => convertCurrencyCubit.state).thenReturn(
       const ConvertCurrencyState(
         fromCurrency: 'USD',
@@ -69,18 +109,14 @@ void main() {
       ),
     );
 
-    await tester.tap(find.byIcon(Icons.swap_vert_circle_outlined));
-    await tester.pump();
-
-    when(() => convertCurrencyCubit.state).thenReturn(
-      const ConvertCurrencyState(
-        rate: 1/15,
-        convertedAmount: 7,
-        amount: 105,
-      ),
+    // Find the TextField and enter text into it.
+    await tester.enterText(
+      find.byKey(const Key('from_currency_text_field')),
+      '200',
     );
+    await tester.pumpAndSettle();
 
-    // Verify that the currency is changed.
-    expect(find.textContaining('7'), findsOneWidget);
+    // Verify that the convertCurrency method was called.
+    verify(() => convertCurrencyCubit.convertCurrency(200)).called(1);
   });
 }

@@ -23,6 +23,10 @@ void main() {
   });
 
   testWidgets('ConverterPage Widget Test', (WidgetTester tester) async {
+    const currencies = [
+      Currency(base: 'EGP', currency: 'USD', rate: 15.5),
+      Currency(base: 'EGP', currency: 'EUR', rate: 18.5),
+    ];
     when(() => mockCubit.state).thenReturn(
       const ConvertCurrencyState(
         rate: 15.5,
@@ -32,10 +36,7 @@ void main() {
     when(() => currencyCubit.state).thenReturn(
       const CurrencyState(
         status: RequestStatus.success,
-        currencies: [
-          Currency(base: 'EGP', currency: 'USD', rate: 15.5),
-          Currency(base: 'EGP', currency: 'EUR', rate: 18.5),
-        ],
+        currencies: currencies,
       ),
     );
 
@@ -44,6 +45,7 @@ void main() {
       Stream<CurrencyState>.fromIterable([
         const CurrencyState(),
         const CurrencyState(
+          currencies: currencies,
           status: RequestStatus.success,
         ),
       ]),

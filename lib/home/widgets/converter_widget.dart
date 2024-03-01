@@ -79,6 +79,9 @@ class ItemWidget extends StatelessWidget {
         const SizedBox(width: 16),
         Flexible(
           child: TextField(
+            key: isFromCurrency
+                ? const Key('from_currency_text_field')
+                : const Key('to_currency_text_field'),
             style: const TextStyle(
               color: Colors.black,
             ),
