@@ -37,22 +37,34 @@ development and testing purposes.
 ### Installing
 
 1. Clone the repository
-   ```git clone https://github.com/Muhammad-Gamal2/currency-converter.git```
+   ```
+   git clone https://github.com/Muhammad-Gamal2/currency-converter.git
+   ```
 2. Navigate to the project directory
-   ```cd currency-converter```
+   ```
+   cd currency-converter
+   ```
 3. Get the dependencies
-   ```flutter pub get```
-4. Run the app
-   ```flutter run```
-5. Build files from code generation
-   ```flutter packages pub run build_runner build```
+   ```
+   flutter pub get
+   ```
+4. Build files from code generation
+   ```
+   flutter packages pub run build_runner build
+   ```
+5. Run the app
+   ```
+   flutter run
+   ```
 
 ## Running the tests
 
 To run the tests, use the following command in the terminal:
 
 ```
+
 flutter test
+
 ```
 
 ## Built With
